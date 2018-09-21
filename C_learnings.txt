@@ -1,0 +1,23 @@
+When you are writing a extern function in 'C'. You dont need to mention the arguments that it take.
+
+pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1.c
+int file1_var1 = 10;
+
+int sum(int i, int j){
+        return i + j;
+}
+pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1_main.c
+#include <stdio.h>
+#include <stdlib.h>
+extern int sum();    //You dont need to mention the arguments.
+int main(){
+
+        printf("sum %d", sum(2,3));
+        return 0;
+}
+
+pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ gcc -o ext1 ext1.c ext1_main.c
+pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ ./ext1
+sum 5
+
+
