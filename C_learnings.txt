@@ -1,3 +1,8 @@
+
+/*********************************/
+/****** Extern ******************/
+/*********************************/
+
 When you are writing a extern function in 'C'. You dont need to mention the arguments that it take.
 
 pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1.c
@@ -22,15 +27,14 @@ sum 5
 
 
 Where as in C++, it is different. Becuase we have function overloading.
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cp ext1_main.c ext1_main.cpp
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cp ext1.c  ext1.cpp
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ g++ -o ext1 ext1.c ext1_main.c
-ext1_main.c: In function ‘int main()’:
-ext1_main.c:6:35: error: too many arguments to function ‘int sum()’
+pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ gcc -o ext1 ext1.cpp ext1_main.cpp
+ext1_main.cpp: In function ‘int main()’:
+ext1_main.cpp:6:35: error: too many arguments to function ‘int sum()’
          printf("sum %d", sum(2,'a'));
                                    ^
-ext1_main.c:3:12: note: declared here
+ext1_main.cpp:3:12: note: declared here
  extern int sum();
             ^~~
+
 
 
