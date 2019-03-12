@@ -5,36 +5,90 @@
 
 When you are writing a extern function in 'C'. You dont need to mention the arguments that it take.
 
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1.c
-int file1_var1 = 10;
+        pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1.c
+        int file1_var1 = 10;
 
-int sum(int i, int j){
-        return i + j;
-}
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1_main.c
-#include <stdio.h>
-#include <stdlib.h>
-extern int sum();    //You dont need to mention the arguments.
-int main(){
+        int sum(int i, int j){
+                return i + j;
+        }
+        pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ cat ext1_main.c
+        #include <stdio.h>
+        #include <stdlib.h>
+        extern int sum();    //You dont need to mention the arguments.
+        int main(){
 
-        printf("sum %d", sum(2,3));
-        return 0;
-}
+                printf("sum %d", sum(2,3));
+                return 0;
+        }
 
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ gcc -o ext1 ext1.c ext1_main.c
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ ./ext1
-sum 5
+        pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ gcc -o ext1 ext1.c ext1_main.c
+        pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ ./ext1
+        sum 5
 
 
 Where as in C++, it is different. Becuase we have function overloading.
-pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ gcc -o ext1 ext1.cpp ext1_main.cpp
-ext1_main.cpp: In function ‘int main()’:
-ext1_main.cpp:6:35: error: too many arguments to function ‘int sum()’
-         printf("sum %d", sum(2,'a'));
-                                   ^
-ext1_main.cpp:3:12: note: declared here
- extern int sum();
-            ^~~
 
+        pushb@pushb-VirtualBox:~/working_dir/practise/CPP$ gcc -o ext1 ext1.cpp ext1_main.cpp
+        ext1_main.cpp: In function ‘int main()’:
+        ext1_main.cpp:6:35: error: too many arguments to function ‘int sum()’
+                 printf("sum %d", sum(2,'a'));
+                                           ^
+        ext1_main.cpp:3:12: note: declared here
+         extern int sum();
+                    ^~~
+        pushb@pushb-VirtualBox:~/working_dir$ cat ./practise/CPP/ext1_main.cpp
+        #include <stdio.h>
+        #include <stdlib.h>
+        int sum(int, int);
+        int main(){
 
+                printf("sum %d", sum(2,'a'));
+                return 0;
+        }
+
+        pushb@pushb-VirtualBox:~/working_dir$
+
+==================================================
+Even for local variables it is the same.
+==================================================
+
+        pushb@pushb-VirtualBox:~/working_dir/learncpp(master)$ g++ -o 2_7_1 2_7_1.cpp
+        2_7_1.cpp: In function ‘int main()’:
+        2_7_1.cpp:7:33: error: too many arguments to function ‘int sum()’
+          std::cout<<"Sum is "<<sum(2, 15)<<std::endl;
+                                         ^
+        2_7_1.cpp:4:5: note: declared here
+         int sum(); //Will throw a compilation error. Coz in cpp it cannot accept without parameters we have polymorphism
+             ^~~
+        pushb@pushb-VirtualBox:~/working_dir/learncpp(master)$ cat 2_7_1.cpp
+        /* These programs are written on top of a automatic template */
+
+        #include <iostream>
+        int sum(); //Will throw a compilation error. Coz in cpp it cannot accept without parameters we have polymorphism
+        int main(){
+
+                std::cout<<"Sum is "<<sum(2, 15)<<std::endl;
+                return 0;
+        }
+        int sum (int  i, int j){
+                return i + j;
+        }
+        pushb@pushb-VirtualBox:~/working_dir/learncpp(master)$ gcc -o 2_7_1 2_7_1.c
+        pushb@pushb-VirtualBox:~/working_dir/learncpp(master)$ ./2_7_1
+        Sum is 11
+        pushb@pushb-VirtualBox:~/working_dir/learncpp(master)$ cat 2_7_1.c
+        #include <stdio.h>
+        #include <stdlib.h>
+        int sum(); //You dont need to tell about the parameters it will take
+        int main(){
+
+                printf("Sum is %d\n", sum(2,9));
+                return 0;
+        }
+        int sum(int i, int j){
+
+                return i + j;
+        }
+
+        pushb@pushb-VirtualBox:~/working_dir/learncpp(master)$
 
